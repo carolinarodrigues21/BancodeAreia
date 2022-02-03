@@ -7,6 +7,7 @@ Carolina Rodrigues e Lucca Martins
 import numpy as np
 import matplotlib.pyplot as plt
 from atualiza import atualizaSlope as atualiza
+from verifica import verifica
 
 L = 10                     #tamanho máximio do banco de areia
 
@@ -30,24 +31,31 @@ def Zcritico(L):
 z_critico = np.array(Zcritico(L))
 print(z_critico)
 grao = 0
-grao_final = 10
+grao_final = 20
 
 while grao < grao_final:
     grao += 1
     h[0] += 1
     z[0] += 1
 
-    while z.any() >= z_critico.any():
+    #print(z)
+    #print(z_critico)
+
+    desliza = verifica(z,z_critico,L)
+
+    while desliza == True:
         for i in range(0,L-1):
             z[i] =  h[i] - h[i+1]
             if z[i] >= z_critico[i]: 
                 z,h = atualiza(z,h,i)
                 z_critico[i] = np.random.randint(2,3)
-                
+        
         if z[-1] >= z_critico[-1]:
             z, h = atualiza(z,h,-1)
             z_critico[-1] = np.random.randint(2,3)
-        #print("cheguei aqui")
+        
+        desliza = verifica(z,z_critico,L)
+
 
 
 print(h)
