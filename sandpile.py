@@ -31,7 +31,9 @@ def Zcritico(L):
 z_critico = np.array(Zcritico(L))
 print(z_critico)
 grao = 0
-grao_final = 20
+grao_final = 100
+
+deslizamento = 0 
 
 while grao < grao_final:
     grao += 1
@@ -48,16 +50,19 @@ while grao < grao_final:
             z[i] =  h[i] - h[i+1]
             if z[i] >= z_critico[i]: 
                 z,h = atualiza(z,h,i)
-                z_critico[i] = np.random.randint(2,3)
+                z_critico[i] = np.random.randint(2,4)
+                deslizamento += 1
         
         if z[-1] >= z_critico[-1]:
             z, h = atualiza(z,h,-1)
-            z_critico[-1] = np.random.randint(2,3)
+            z_critico[-1] = np.random.randint(2,4)
+            deslizamento += 1
         
         desliza = verifica(z,z_critico,L)
 
 
 
 print(h)
+print(deslizamento)
     
 # %%
