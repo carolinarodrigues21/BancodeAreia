@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from atualiza import atualizaSlope as atualiza
 from verifica import verifica
 
-L = 10                     #tamanho máximio do banco de areia
+L = 100                    #tamanho máximio do banco de areia
 
 
 #altura de cada parte da pilha 
@@ -29,9 +29,9 @@ def Zcritico(L):
 #z_critico = np.array(np.random.randint(2,3) in range(L)) #o artigo diz de 1 a 2, mas a gente não concorda (?)
 
 z_critico = np.array(Zcritico(L))
-print(z_critico)
+#print(z_critico)
 grao = 0
-grao_final = 100
+grao_final = 5000
 
 deslizamento = 0 
 
@@ -62,7 +62,13 @@ while grao < grao_final:
 
 
 
-print(h)
+#print(h)
 print(deslizamento)
+
+x =range(0,L)
+plt.plot(x,h, color='gold')
+plt.grid(True)
+plt.show()
+
     
 # %%
