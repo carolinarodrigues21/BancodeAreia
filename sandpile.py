@@ -19,19 +19,17 @@ h = np.zeros(L)
 z = np.zeros(L)
 
 #slopes críticos 
-
 def Zcritico(L):
     z_critico = []
     while len(z_critico) < L:
         z_critico.append(np.random.randint(2,4))
     return z_critico
 
-#z_critico = np.array(np.random.randint(2,3) in range(L)) #o artigo diz de 1 a 2, mas a gente não concorda (?)
 
 z_critico = np.array(Zcritico(L))
 #print(z_critico)
 grao = 0
-grao_final = 5000
+grao_final = 10000
 
 deslizamento = 0 
 
@@ -61,14 +59,17 @@ while grao < grao_final:
         desliza = verifica(z,z_critico,L)
 
 
-
 #print(h)
-print(deslizamento)
+#print(deslizamento)
 
-x =range(0,L)
-plt.plot(x,h, color='gold')
+  
+x = range(0,L)
+
+plt.fill_between(x,h, color ='gold')
 plt.grid(True)
+plt.title("Pilha de Areia na estabilidade após %i deslizamentos" %(deslizamento))
+plt.xlabel("extensão do banco de areia")
+plt.ylabel("altura da pilha")
 plt.show()
 
-    
 # %%
