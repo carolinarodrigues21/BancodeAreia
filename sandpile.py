@@ -11,7 +11,6 @@ from verifica import verifica
 
 L = 100                    #tamanho máximio do banco de areia
 
-
 #altura de cada parte da pilha 
 h = np.zeros(L)   
 
@@ -28,10 +27,12 @@ def Zcritico(L):
 
 z_critico = np.array(Zcritico(L))
 #print(z_critico)
+
 grao = 0
 grao_final = 10000
 
 deslizamento = 0 
+p = 0
 
 while grao < grao_final:
     grao += 1
@@ -47,12 +48,12 @@ while grao < grao_final:
         for i in range(0,L-1):
             z[i] =  h[i] - h[i+1]
             if z[i] >= z_critico[i]: 
-                z,h = atualiza(z,h,i)
+                z,h = atualiza(z,h,i,p)
                 z_critico[i] = np.random.randint(2,4)
                 deslizamento += 1
         
         if z[-1] >= z_critico[-1]:
-            z, h = atualiza(z,h,-1)
+            z, h = atualiza(z,h,-1,p)
             z_critico[-1] = np.random.randint(2,4)
             deslizamento += 1
         
