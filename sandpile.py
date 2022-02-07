@@ -32,7 +32,7 @@ grao = 0
 grao_final = 10000
 
 deslizamento = 0 
-p = 0
+p = 1
 
 while grao < grao_final:
     grao += 1
@@ -71,6 +71,7 @@ plt.grid(True)
 plt.title("Pilha de Areia na estabilidade após %i deslizamentos" %(deslizamento))
 plt.xlabel("extensão do banco de areia")
 plt.ylabel("altura da pilha")
+plt.savefig('imagens\Banco(g=%i)(p=%.3f).png' %(grao,p))
 plt.show()
 
 # %%
