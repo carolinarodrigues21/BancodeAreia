@@ -30,7 +30,7 @@ z_critico = np.array(Zcritico(L))
 #print(z_critico)
 
 grao = 0
-grao_final = 20000
+grao_final = 100
 
 deslizamento = 0 
 p = 0
@@ -97,7 +97,6 @@ a,b = popt
 #a = -1.671     b= 128.429 (L= 400, graos = 5*10^3)
 
 
-
 plt.fill_between(x,h, color ='gold')
 plt.plot(x_areiaFit,fitSand(x_areiaFit,a,b), color = "green", label = "a =%.3f \nb =%.3f" %(a,b))
 plt.grid(True)
@@ -107,4 +106,9 @@ plt.ylabel("altura da pilha")
 plt.legend()
 plt.savefig('imagens\Banco(g=%i)(p=%.3f).png' %(grao,p))
 plt.show()
+
+
+a = [-1.676, -1.746, -1.672, -1.684, -1.635, -1.677, -1.733, -1.671]
+print("média de slope é ",np.mean(a))
+print("o desvio padrão do slope é ",np.std(a))
 
