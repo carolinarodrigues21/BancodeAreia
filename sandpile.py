@@ -35,10 +35,14 @@ grao_final = 10000
 deslizamento = 0 
 p = 0
 
+energia = np.zeros(grao_final+1)
+energia[0] = 0
+
 while grao < grao_final:
     grao += 1 #mais um grão na pilha
     h[0] += 1 #aumenta a altura da primeira casa [0]
     z[0] += 1 #aumenta a diferença de altura da posição 0 com a 1
+    e = 0
 
     #print(z)
     #print(z_critico)
@@ -51,20 +55,23 @@ while grao < grao_final:
         for i in range(0,L-1):
             z[i] =  h[i] - h[i+1]                       #diferença de altura da casa a partir das alturas
             if z[i] >= z_critico[i]: 
-                z,h = atualiza(z,h,i,p)                 #altera a configuração da pilha com após deslizamento
+                z, h, e = atualiza(z,h,i,p,e)                 #altera a configuração da pilha com após deslizamento
                 z_critico[i] = np.random.randint(2,4)   #recalcula o z_critico depois de um deslizamento 
                 deslizamento += 1 #contador do número de deslizamentos
         
         if z[-1] >= z_critico[-1]:
-            z, h = atualiza(z,h,-1,p)
+            z, h, e = atualiza(z,h,-1,p,e)
             z_critico[-1] = np.random.randint(2,4)
             deslizamento += 1   #contador do número de deslizamentos
         
         desliza,avalanche = verifica(z,z_critico,L) #verifica de novo se houve deslizamento para sair ou não do loop
+    #print(e)
+    energia[grao] = energia[grao-1] + e
 
 
 #print(h)
 #print(deslizamento)
+#print(energia)
 
 x = range(0,L)
 
@@ -111,9 +118,31 @@ plt.legend()
 #plt.savefig('imagens\Banco(g=%i)(p=%.3f).png' %(grao,p))
 plt.show()
 
+x_grao = np.array(range(0,grao_final+1))
+
+def fitEnerg(x,A,B):
+  return A*np.exp(B*x)
+
+popt, pcov = curve_fit(fitEnerg, x_grao, energia)
+A,B= popt
+errA = pcov[0,0]
+errB = pcov[1,1]
+
+plt.plot(x_grao,energia, color ='green')
+plt.plot(x_grao, fitEnerg(x_grao,A,B), color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(A,errA,B,errB))
+plt.grid(True)
+plt.title("Energia por grão de areia")
+plt.xlabel("Número de grãos na pilha")
+plt.ylabel("energia da pilha")
+#plt.xscale("log")
+#plt.yscale("log")
+plt.legend()
+#plt.savefig('imagens\Banco(g=%i)(p=%.3f).png' %(grao,p))
+plt.show()
 
 '''
 a = [-1.676, -1.746, -1.672, -1.684, -1.635, -1.677, -1.733, -1.671]
 print("média de slope é ",np.mean(a))
 print("o desvio padrão do slope é ",np.std(a))
 '''
+# %%
