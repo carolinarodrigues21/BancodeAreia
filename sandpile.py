@@ -33,7 +33,7 @@ grao = 0
 grao_final = 10000
 
 deslizamento = 0 
-p = 0
+p = 1
 
 energia = np.zeros(grao_final+1)
 energia[0] = 0
@@ -121,23 +121,23 @@ plt.show()
 x_grao = np.array(range(0,grao_final+1))
 
 def fitEnerg(x,A,B):
-  return A*np.exp(B*x)
+  return A*np.exp(x*B)
 
 popt, pcov = curve_fit(fitEnerg, x_grao, energia)
 A,B= popt
 errA = pcov[0,0]
 errB = pcov[1,1]
 
-plt.plot(x_grao,energia, color ='green')
-plt.plot(x_grao, fitEnerg(x_grao,A,B), color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(A,errA,B,errB))
+plt.plot(x_grao,energia, color ='green', label = "Dados" )
+#plt.plot(x_grao, fitEnerg(x_grao,A,B), color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(A,errA,B,errB))
 plt.grid(True)
-plt.title("Energia por grão de areia")
+plt.title("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
 plt.xlabel("Número de grãos na pilha")
 plt.ylabel("energia da pilha")
-#plt.xscale("log")
-#plt.yscale("log")
+plt.xscale("log")
+plt.yscale("log")
 plt.legend()
-#plt.savefig('imagens\Banco(g=%i)(p=%.3f).png' %(grao,p))
+plt.savefig('imagens\graficos_energiaXgrao\Gráfico(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
 
 '''
