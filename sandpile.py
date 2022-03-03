@@ -10,7 +10,7 @@ from scipy.optimize import curve_fit
 from atualiza import atualizaSlope as atualiza
 from verifica import *
 
-L = 100                    #tamanho máximo do banco de areia
+L = 50              #tamanho máximo do banco de areia
 
 #altura de cada parte da pilha 
 h = np.zeros(L)   
