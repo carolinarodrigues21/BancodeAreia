@@ -20,7 +20,7 @@ def verifica(z,zc,L):
     contadorAva = 0
     #print(avalanche)
     for j in range(0,len(avalanche)-1):
-        if avalanche[j] == avalanche[j+1]:
+        if avalanche[j]==1 and avalanche[j] == avalanche[j+1] :
             contadorAva += 1
     
     if contadorDes != 0:

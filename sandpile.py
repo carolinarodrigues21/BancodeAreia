@@ -11,7 +11,7 @@ from atualiza import atualizaSlope as atualiza
 from verifica import *
 
 #tamanho máximo do banco de areia
-L = 50              
+L = 100            
 
 #altura de cada parte da pilha 
 h = np.zeros(L)   
@@ -34,24 +34,29 @@ z_critico = np.array(Zcritico(L))
 grao = 0
 
 #número total de grãos colocados no sistema
-grao_final = 10000
+grao_final = 1000
 
 #contagem de deslizamentos no sistema
 deslizamento = 0 
 
 #valor da constante p
-p = 1
+p = 0
 
 energia = np.zeros(grao_final+1)
 
 #valor da energia no início do sistema
 energia[0] = 0
 
+magnitudeAvalanche = np.zeros(grao_final+1)
+
+magnitudeAvalanche[0]= 0 
+
 while grao < grao_final:
     grao += 1               #mais um grão na pilha
     h[0] += 1               #aumenta a altura da primeira casa [0]
     z[0] += 1               #aumenta a diferença de altura da posição 0 com a 1
     e = 0
+    MagAv = 0
 
 
     #verifica se ocorre deslizamento 
@@ -72,8 +77,14 @@ while grao < grao_final:
             deslizamento += 1                               #contador do número de deslizamentos
         
         desliza,avalanche = verifica(z,z_critico,L)         #verifica de novo se houve deslizamento para sair ou não do loop
+        MagAv += avalanche
+        #print(MagAv)
     #print(e)
     energia[grao] = energia[grao-1] + e                     #calcula a energia do estado atual acumulando ao anterior
+    magnitudeAvalanche[grao] = MagAv                   #calcula a magnitude das avalanches pela entrada do grão
+
+
+print(magnitudeAvalanche)
 
 
 #ajustar os dados da pilha de areia
@@ -111,7 +122,7 @@ errb = pcov[1,1]        #erro do coeficiente linear
 
 #a = -1.671     b= 128.429 (L= 400, graos = 5*10^3)
 
-
+'''
 #criar gráfico da pilha de areia com o fit linear
 plt.fill_between(x,h, color ='gold')
 plt.plot(x_areiaFit,fitSand(x_areiaFit,a,b), color = "green", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
@@ -149,9 +160,26 @@ plt.legend()
 plt.savefig('imagens\graficos_energiaXgrao\Gráfico(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
 
-'''
+
+
+
 a = [-1.676, -1.746, -1.672, -1.684, -1.635, -1.677, -1.733, -1.671]
 print("média de slope é ",np.mean(a))
 print("o desvio padrão do slope é ",np.std(a))
 '''
+
+listaAvalanche = []
+for i in range(0,len(magnitudeAvalanche)):
+    if magnitudeAvalanche[i] != 0:
+        listaAvalanche.append(magnitudeAvalanche[i])
+
+#print(listaAvalanche)
+
+
+plt.hist(listaAvalanche,bins = 5,ec = "k", density = True)
+plt.grid(True)
+plt.xlabel("Tamanho da Avalanche")
+plt.ylabel("Frequência")
+plt.show()
+
 # %%
