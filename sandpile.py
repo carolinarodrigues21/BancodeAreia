@@ -130,6 +130,7 @@ for i in range(0,len(magnitudeAvalanche)):
 
 #print(listaAvalanche)
 
+
 plt.fill_between(x,h, color ='gold')
 plt.grid(True)
 plt.title("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
@@ -138,6 +139,7 @@ plt.ylabel("altura da pilha")
 plt.legend()
 plt.savefig('imagens\graficosFinais\Banco(g=%i)(p=%.3f).png' %(grao,p))
 plt.show()
+
 
 #criar gráfico da pilha de areia com o fit linear
 plt.fill_between(x,h, color ='gold')
@@ -152,13 +154,13 @@ plt.show()
 
 
 x_grao = np.array(range(0,grao_final+1))
-x_grao_fit = np.array(range(10,grao_final+1))
+x_grao_fit = np.array(range(10**2,grao_final+1))
 
 
 energia_fit = []
-for i in range(10,10**4+1):
+for i in range(10**2,10**4+1):
     energia_fit.append(energia[i])
-print(energia_fit[0], energia_fit[-1])
+#print(energia_fit[0], energia_fit[-1])
 
 
 logA = np.log(x_grao_fit) #no need for list comprehension since all z values >= 1
@@ -172,6 +174,7 @@ y_fit = np.exp(m*logA + c) # calculate the fitted values of y
 errm = np.sqrt(pcov[0,0])
 errc = np.sqrt(pcov[1,1])
 
+
 #criar gráfico da relação da energia por grão de areia no sistema
 plt.plot(x_grao,energia, color ='green', label = "Dados" )
 plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(m,errm,c,errc))
@@ -183,9 +186,8 @@ plt.ylabel("energia da pilha")
 plt.xscale("log")
 plt.yscale("log")
 plt.legend()
-#plt.savefig('imagens\graficos_energiaXgrao\Gráfico(L=%i)(p=%.3f).png' %(L,p))
+plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
-
 
 
 '''
@@ -194,12 +196,15 @@ print("média de slope é ",np.mean(a))
 print("o desvio padrão do slope é ",np.std(a))
 '''
 
+bins = [5,10, 15, 30, 50, 75, 100]
 
-plt.hist(listaAvalanche,bins = 5,ec = "k", density = True)
-#plt.xlim(0,500)
-plt.grid(True)
-plt.xlabel("Tamanho da Avalanche")
-plt.ylabel("Frequência")
-plt.show()
+for i in bins:
+    plt.hist(listaAvalanche,bins = i,ec = "k", density = True)
+    plt.title("Frequência de Avalanches por Energia (bins = %i)" %(i))
+    plt.grid(True)
+    plt.xlabel("Tamanho da Avalanche (Energia)")
+    plt.ylabel("Frequência Normalizada")
+    plt.savefig('imagens\graficosFinais\Freq(L=%i)(p=%.3f)(bins=%i).png' %(L,p,i))
+    plt.show()
 
 # %%
