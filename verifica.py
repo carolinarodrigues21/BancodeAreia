@@ -21,7 +21,11 @@ def verifica(z,zc,L):
     #print(avalanche)
     for j in range(0,len(avalanche)-1):
         if avalanche[j]==1 and avalanche[j] == avalanche[j+1] :
+            #print("entrei")
             contadorAva += 1
+            #print(contadorAva)
+    
+    #print(contadorAva)
     
     if contadorDes != 0:
         return True, contadorAva
