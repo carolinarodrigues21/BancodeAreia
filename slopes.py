@@ -27,7 +27,6 @@ errory_Lg =  [0.005, 0.003, 0.004, 0.003,0.002, 0.003, 0.001, 0.004]
 errory_p = [0.002, 0.009, 0.02, 0.03, 0.02, 0.06, 0.05, 0.07, 0.10, 0.06]
 
 
-
 def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
 
     def fit(x,a,b):

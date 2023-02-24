@@ -1,4 +1,4 @@
-#%%
+
 import numpy as np 
 import matplotlib.pyplot as plt 
 from scipy.optimize import curve_fit
@@ -26,4 +26,3 @@ plt.xlabel("Probabilidade de um grão sair da pilha")
 plt.ylabel("Coeficiente angular da energia por grão de areia")
 plt.legend()
 plt.show()
-# %%
