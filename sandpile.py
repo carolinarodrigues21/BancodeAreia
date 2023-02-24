@@ -165,3 +165,6 @@ plt.yscale("log")
 plt.legend()
 plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
+
+AvalanchePorP(listaAvalanche,p,L)
+AvalanchePorP_semiLogHist(listaAvalanche, p, L)
