@@ -1,14 +1,20 @@
-#%%
 """
-Este é o código central que chamará as demais funções utilizadas 
+Este é o código central para a produção da pilha, obtenção das avalanches e energias da 
 
-Carolina Rodrigues e Lucca Martins
+autores: Carolina Rodrigues e Lucca Martins
 """
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from atualiza import atualizaSlope as atualiza
 from verifica import *
+from avalanches import *
+
+def Zcritico(L:int):
+    z_critico = []
+    while len(z_critico) < L:
+        z_critico.append(np.random.randint(2,4))
+    return z_critico
 
 #tamanho máximo do banco de areia
 L = 100            
@@ -19,15 +25,7 @@ h = np.zeros(L)
 #deltaH entre as células da pilha 
 z = np.zeros(L)
 
-#slopes críticos 
-def Zcritico(L):
-    z_critico = []
-    while len(z_critico) < L:
-        z_critico.append(np.random.randint(2,4))
-    return z_critico
-
-
-#transforma a lista de z críticos em array 
+#deltaH crítico entre as células da pilha 
 z_critico = np.array(Zcritico(L))
 
 #contagem de grãos no sistema
@@ -49,14 +47,15 @@ energia[0] = 0
 
 magnitudeAvalanche = np.zeros(grao_final+1)
 
+#valor da avalanche no início do sistema
 magnitudeAvalanche[0]= 0 
 
 while grao < grao_final:
     grao += 1               #mais um grão na pilha
     h[0] += 1               #aumenta a altura da primeira casa [0]
     z[0] += 1               #aumenta a diferença de altura da posição 0 com a 1
-    e = 0
-    MagAv = 0
+    e = 0                   #valor da energia
+    MagAv = 0               #valor da magnitude da avalanche
 
 
     #verifica se ocorre deslizamento 
@@ -71,20 +70,17 @@ while grao < grao_final:
                 z_critico[i] = np.random.randint(2,4)       #recalcula o z_critico depois de um deslizamento 
                 deslizamento += 1                           #contador do número de deslizamentos
         
-        if z[-1] >= z_critico[-1]:
+        if z[-1] >= z_critico[-1]:                          # verifica para o final da pilha
             z, h, e = atualiza(z,h,-1,p,e)
             z_critico[-1] = np.random.randint(2,4)
-            deslizamento += 1                               #contador do número de deslizamentos
+            deslizamento += 1                               
         
         desliza,avalanche = verifica(z,z_critico,L)         #verifica de novo se houve deslizamento para sair ou não do loop
         MagAv += avalanche
-        #print(MagAv)
-    #print(e)
+         
     energia[grao] = energia[grao-1] + e                     #calcula a energia do estado atual acumulando ao anterior
-    magnitudeAvalanche[grao] = MagAv                   #calcula a magnitude das avalanches pela entrada do grão
+    magnitudeAvalanche[grao] = MagAv                        #calcula a magnitude das avalanches pela entrada do grão
 
-
-#print(magnitudeAvalanche)
 
 #ajustar os dados da pilha de areia
 x = range(0,L)
@@ -108,27 +104,10 @@ a,b = popt
 erra = np.sqrt(pcov[0,0])        #erro do coeficiente angular
 errb = np.sqrt(pcov[1,1])        #erro do coeficiente linear
 
-
-#a = -1.676     b= 128.644 (L= 80, graos = 5*10^3)
-
-#a = -1.746     b= 175.209 (L = 100, graos = 10^4)
-#a = -1.672     b= 128.482 (L= 100, graos = 5*10^3)
-
-#a = -1.684     b= 182.702 (L= 200, graos = 10^4)
-#a = -1.635     b= 127.044 (L= 200, graos = 5*10^3)
-#a = -1.677     b= 199.793 (L= 200, graos = 12*10^3)
-#a = -1.733     b= 262.403 (L= 200, graos = 2*10^4)
-
-#a = -1.671     b= 128.429 (L= 400, graos = 5*10^3)
-
-#print(magnitudeAvalanche)
-
 listaAvalanche = []
 for i in range(0,len(magnitudeAvalanche)):
     if magnitudeAvalanche[i] != 0:
         listaAvalanche.append(magnitudeAvalanche[i])
-
-#print(listaAvalanche)
 
 
 plt.fill_between(x,h, color ='gold')
@@ -156,20 +135,18 @@ plt.show()
 x_grao = np.array(range(0,grao_final+1))
 x_grao_fit = np.array(range(10**2,grao_final+1))
 
-
 energia_fit = []
 for i in range(10**2,10**4+1):
     energia_fit.append(energia[i])
-#print(energia_fit[0], energia_fit[-1])
 
 
-logA = np.log(x_grao_fit) #no need for list comprehension since all z values >= 1
+logA = np.log(x_grao_fit) 
 logB = np.log(energia_fit)
 
-popt,pcov = np.polyfit(logA, logB, 1, cov=True) # fit log(y) = m*log(x) + c
+popt,pcov = np.polyfit(logA, logB, 1, cov=True)         # ajuste log(y) = m*log(x) + c
 m = popt[0]
 c = popt[1]
-y_fit = np.exp(m*logA + c) # calculate the fitted values of y 
+y_fit = np.exp(m*logA + c)                              # calcula os valores ajustados de y 
 
 errm = np.sqrt(pcov[0,0])
 errc = np.sqrt(pcov[1,1])
@@ -188,23 +165,3 @@ plt.yscale("log")
 plt.legend()
 plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
-
-
-'''
-a = [-1.676, -1.746, -1.672, -1.684, -1.635, -1.677, -1.733, -1.671]
-print("média de slope é ",np.mean(a))
-print("o desvio padrão do slope é ",np.std(a))
-'''
-
-bins = [5,10, 15, 30, 50, 75, 100]
-
-for i in bins:
-    plt.hist(listaAvalanche,bins = i,ec = "k", density = True)
-    plt.title("Frequência de Avalanches por Energia (bins = %i)" %(i))
-    plt.grid(True)
-    plt.xlabel("Tamanho da Avalanche (Energia)")
-    plt.ylabel("Frequência Normalizada")
-    plt.savefig('imagens\graficosFinais\Freq(L=%i)(p=%.3f)(bins=%i).png' %(L,p,i))
-    plt.show()
-
-# %%
