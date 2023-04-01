@@ -20,11 +20,11 @@ x_p = np.arange(0,1,0.1)
 
 # slopes_Lg = [-1.755, -1.687, -1.698, -1.682,-1.682, -1.682, -1.701, -1.710 ]
 # slopes = [-1.723, -1.712, -1.709, -1.42, -1.21]
-s_p = [-1.719, -1.705,-1.62,-1.73 ,-1.49,-1.544,-1.35,-1.38,-1.39,-1.37]
+s_p = [-1.719, -1.705,-1.62,-1.61 ,-1.49,-1.544,-1.35,-1.38,-1.39,-1.37]
 
 # errory_Lg =  [0.005, 0.003, 0.004, 0.003,0.002, 0.003, 0.001, 0.004]
 # errory = [0.002, 0.003, 0.009, 0.06,0.06]
-errory_p = [0.004, 0.007, 0.02, 0.02, 0.04, 0.05, 0.03, 0.08, 0.06, 0.12]
+errory_p = [0.004, 0.007, 0.02, 0.03, 0.04, 0.05, 0.03, 0.08, 0.06, 0.12]
 
 
 def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
@@ -42,7 +42,7 @@ def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
     errb = np.sqrt(pcov[1,1])        #erro do coeficiente linear
 
     plt.scatter(x,slopes,color='red')
-    plt.plot(x,fit(x,a,b), color = "green", label = "a =%.6f $\pm$ %.6f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
+    plt.plot(x,fit(x,a,b), color = "green", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
     plt.errorbar(x, slopes, yerr=errory, fmt="o")
     # if y_lim == True:
     #     plt.ylim(-1.9,-1.5)
