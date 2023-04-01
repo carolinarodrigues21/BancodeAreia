@@ -38,7 +38,7 @@ grao_final = 10000
 deslizamento = 0 
 
 #valor da constante p
-p = 0.7 
+p = 0.9 
 
 energia = np.zeros(grao_final+1)
 

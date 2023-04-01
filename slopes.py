@@ -14,17 +14,17 @@ import matplotlib.pyplot as plt
 
 #a = -1.671     b= 128.429 (L= 400, graos = 5*10^3)
 
-x_L = [80, 100, 100, 200,200,200,200,400]
-x_grãos = [5000, 5000, 10000, 5000, 10000, 12000, 20000, 5000]
+# x_L = [80, 100, 100, 200,200,200,200,400]
+# x_grãos = [5000, 5000, 10000, 5000, 10000, 12000, 20000, 5000]
 x_p = np.arange(0,1,0.1)
 
-slopes_Lg = [-1.755, -1.687, -1.698, -1.682,-1.682, -1.682, -1.701, -1.710 ]
-slopes = [-1.723, -1.712, -1.709, -1.42, -1.21]
-s_p = [-1.723, -1.709,-1.557,-1.605,-1.676,-1.654,-1.376,-1.595,-1.357,-1.371]
+# slopes_Lg = [-1.755, -1.687, -1.698, -1.682,-1.682, -1.682, -1.701, -1.710 ]
+# slopes = [-1.723, -1.712, -1.709, -1.42, -1.21]
+s_p = [-1.719, -1.705,-1.62,-1.73 ,-1.49,-1.544,-1.35,-1.38,-1.39,-1.4]
 
-errory_Lg =  [0.005, 0.003, 0.004, 0.003,0.002, 0.003, 0.001, 0.004]
+# errory_Lg =  [0.005, 0.003, 0.004, 0.003,0.002, 0.003, 0.001, 0.004]
 # errory = [0.002, 0.003, 0.009, 0.06,0.06]
-errory_p = [0.002, 0.009, 0.02, 0.03, 0.02, 0.06, 0.05, 0.07, 0.10, 0.06]
+errory_p = [0.004, 0.007, 0.02, 0.02, 0.04, 0.05, 0.03, 0.08, 0.06, 0.2]
 
 
 def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
@@ -44,8 +44,8 @@ def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
     plt.scatter(x,slopes,color='red')
     plt.plot(x,fit(x,a,b), color = "green", label = "a =%.6f $\pm$ %.6f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
     plt.errorbar(x, slopes, yerr=errory, fmt="o")
-    if y_lim == True:
-        plt.ylim(-1.9,-1.5)
+    # if y_lim == True:
+    #     plt.ylim(-1.9,-1.5)
     plt.xlabel(x_label)
     plt.ylabel("slopes (a)")
     plt.legend(prop={'size': 15})
@@ -53,5 +53,5 @@ def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
     return plt.show()
 
 para_P = slope_graph(x_p,s_p, errory_p,'Slopep.pdf', 'p', True)
-para_L = slope_graph(x_L,slopes_Lg,errory_Lg, 'SlopeL.pdf', 'L', True)
-para_L = slope_graph(x_grãos,slopes_Lg,errory_Lg, 'Slopeg.pdf', 'grãos', True)
+# para_L = slope_graph(x_L,slopes_Lg,errory_Lg, 'SlopeL.pdf', 'L', True)
+# para_L = slope_graph(x_grãos,slopes_Lg,errory_Lg, 'Slopeg.pdf', 'grãos', True)
