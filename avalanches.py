@@ -7,24 +7,21 @@ def avalancheVariaBin(listaAvalanche):
 
     for i in bins:
         plt.hist(listaAvalanche,bins = i,ec = "k", density = True)
-        plt.title("Frequência de Avalanches por Energia (bins = %i)" %(i))
-        plt.grid(True)
+
         plt.xlabel("Tamanho da Avalanche (Energia)")
         plt.ylabel("Frequência Normalizada")
-        plt.savefig('imagens\graficosFinais\Freq(L=%i)(p=%.3f)(bins=%i).png' %(L,p,i))
+        plt.savefig('imagens\graficosFinais\FreqAvaEne(L=%i)(p=%.3f)(bins=%i).png' %(L,p,i))
         return plt.show()
 
 def AvalanchePorP(listaAvalanche, p, L):
 
-    # bin = mt.sqrt(len(listaAvalanche))
-    bin = 5
+    bin = mt.sqrt(len(listaAvalanche))
 
-    plt.hist(listaAvalanche,bins = int(bin),ec = "k", density = True)
-    plt.title("Frequência de Avalanches por Energia (bins = %i)" %(bin))
-    plt.grid(True)
+    plt.hist(listaAvalanche,bins = int(bin),ec = "k", density = True, label = 'bins=%i' %(bin))
     plt.xlabel("Tamanho da Avalanche (Energia)")
     plt.ylabel("Frequência Normalizada")
-    plt.savefig('imagens\graficosFinais\Freq(L=%i)(p=%.3f).png' %(L,p))
+    plt.legend(prop={'size': 15})
+    plt.savefig('imagens\graficosFinais\FreqAvaEne(L=%i)(p=%.3f).png' %(L,p))
     return plt.show()
 
 
@@ -33,8 +30,10 @@ def AvalanchePorP_semiLogHist(listaAvalanche, p, L):
     bin = mt.sqrt(len(listaAvalanche))
     hist, bins = np.histogram(listaAvalanche, bins=int(bin))
     logbins = np.logspace(np.log10(bins[0]),np.log10(bins[-1]),len(bins))
-    plt.title("Frequência de Avalanches por Energia (bins = %i) (p = %.2f)" %(bin, p))
-    plt.hist(listaAvalanche, bins=logbins)
+    plt.hist(listaAvalanche, bins=logbins, label = 'bins=%i' %(bin))
     plt.xscale('log')
-    plt.savefig('imagens\graficosFinais\HistSLogFreq(p=%.3f).png' %(p))
+    plt.xlabel("Tamanho da Avalanche (Energia)")
+    plt.ylabel("Frequência")
+    plt.legend(prop={'size': 15})
+    plt.savefig('imagens\graficosFinais\HistSLogFreqAvaEne(p=%.3f).png' %(p))
     plt.show()

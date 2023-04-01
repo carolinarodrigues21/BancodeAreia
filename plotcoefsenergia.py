@@ -18,11 +18,10 @@ errb = np.sqrt(pcov[1,1])        #erro do coeficiente linear
 errc = np.sqrt(pcov[2,2])
 
 
+print("Coefientes angulares dos plots de energia pela probabilidade")
 plt.scatter(ps,slopes, color = "dodgerblue", label = "dados")
 plt.plot(psfit,fitSand(psfit,a,b,c), color = "crimson", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f \nc =%.3f $\pm$ %.3f" %(a,erra,b,errb,c,errc))
-plt.grid(True)
-plt.title("Coefientes angulares dos plots de energia pela probabilidade")
 plt.xlabel("Probabilidade de um grão sair da pilha")
 plt.ylabel("Coeficiente angular da energia por grão de areia")
-plt.legend()
+plt.legend(prop={'size': 15})
 plt.show()

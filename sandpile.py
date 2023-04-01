@@ -16,7 +16,7 @@ def Zcritico(L:int):
         z_critico.append(np.random.randint(2,4))
     return z_critico
 
-#tamanho máximo do banco de areia
+#tamanho máximo do banco de areiass
 L = 100            
 
 #altura de cada parte da pilha 
@@ -109,25 +109,21 @@ for i in range(0,len(magnitudeAvalanche)):
     if magnitudeAvalanche[i] != 0:
         listaAvalanche.append(magnitudeAvalanche[i])
 
+# print("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
+# plt.fill_between(x,h, color ='gold')
+# plt.xlabel("extensão do banco de areia")
+# plt.ylabel("altura da pilha")
+# plt.legend()
+# plt.savefig('imagens\graficosFinais\Banco(g=%i)(p=%.3f).png' %(grao,p))
+# plt.show()
 
-plt.fill_between(x,h, color ='gold')
-plt.grid(True)
-plt.title("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
-plt.xlabel("extensão do banco de areia")
-plt.ylabel("altura da pilha")
-plt.legend()
-plt.savefig('imagens\graficosFinais\Banco(g=%i)(p=%.3f).png' %(grao,p))
-plt.show()
-
-
+print("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
 #criar gráfico da pilha de areia com o fit linear
 plt.fill_between(x,h, color ='gold')
 plt.plot(x_areiaFit,fitSand(x_areiaFit,a,b), color = "green", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
-plt.grid(True)
-plt.title("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
 plt.xlabel("extensão do banco de areia")
 plt.ylabel("altura da pilha")
-plt.legend()
+plt.legend(prop={'size': 15})
 plt.savefig('imagens\graficosFinais\BancoFit(g=%i)(p=%.3f).png' %(grao,p))
 plt.show()
 
@@ -152,17 +148,15 @@ errm = np.sqrt(pcov[0,0])
 errc = np.sqrt(pcov[1,1])
 
 
+print("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
 #criar gráfico da relação da energia por grão de areia no sistema
 plt.plot(x_grao,energia, color ='green', label = "Dados" )
 plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(m,errm,c,errc))
-#plt.plot(x_grao_fit, yfit)
-plt.grid(True)
-plt.title("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
 plt.xlabel("Número de grãos na pilha")
 plt.ylabel("energia da pilha")
 plt.xscale("log")
 plt.yscale("log")
-plt.legend()
+plt.legend(prop={'size': 15})
 plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
 plt.show()
 

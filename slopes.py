@@ -44,12 +44,11 @@ def slope_graph(x,y, erry, save_path:str, x_label:str, y_lim:bool):
     plt.scatter(x,slopes,color='red')
     plt.plot(x,fit(x,a,b), color = "green", label = "a =%.6f $\pm$ %.6f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
     plt.errorbar(x, slopes, yerr=errory, fmt="o")
-    plt.grid(True)
     if y_lim == True:
         plt.ylim(-1.9,-1.5)
     plt.xlabel(x_label)
     plt.ylabel("slopes (a)")
-    plt.legend()
+    plt.legend(prop={'size': 15})
     plt.savefig(save_path)
     return plt.show()
 
