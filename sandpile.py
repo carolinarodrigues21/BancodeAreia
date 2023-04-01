@@ -38,7 +38,7 @@ grao_final = 10000
 deslizamento = 0 
 
 #valor da constante p
-p = 0
+p = 0.7 
 
 energia = np.zeros(grao_final+1)
 
@@ -151,7 +151,7 @@ errc = np.sqrt(pcov[1,1])
 print("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
 #criar gráfico da relação da energia por grão de areia no sistema
 plt.plot(x_grao,energia, color ='green', label = "Dados" )
-plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(m,errm,c,errc))
+plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.5f $\pm$ %.5f \nb =%.5f $\pm$ %.5f" %(m,errm,c,errc))
 plt.xlabel("Número de grãos na pilha")
 plt.ylabel("energia da pilha")
 plt.xscale("log")
