@@ -30,7 +30,7 @@ def AvalanchePorP_semiLogHist(listaAvalanche, p, L):
     bin = mt.sqrt(len(listaAvalanche))
     hist, bins = np.histogram(listaAvalanche, bins=int(bin))
     logbins = np.logspace(np.log10(bins[0]),np.log10(bins[-1]),len(bins))
-    plt.hist(listaAvalanche, bins=logbins, label = 'bins=%i' %(bin))
+    plt.hist(listaAvalanche, bins=logbins, ec = "k", density = True, label = 'bins=%i' %(bin))
     plt.xscale('log')
     plt.xlabel("Tamanho da Avalanche (Energia)")
     plt.ylabel("Frequência")
