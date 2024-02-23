@@ -11,7 +11,7 @@ from atualiza import atualizaSlope as atualiza
 from verifica import *
 
 #tamanho máximo do banco de areia
-L = 100            
+L = 75            
 
 #altura de cada parte da pilha 
 h = np.zeros(L)   
@@ -40,7 +40,7 @@ grao_final = 10000
 deslizamento = 0 
 
 #valor da constante p
-p = 0
+p = 0.5
 
 energia = np.zeros(grao_final+1)
 
