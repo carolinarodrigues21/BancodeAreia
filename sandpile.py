@@ -38,7 +38,7 @@ grao_final = 10000
 deslizamento = 0 
 
 #valor da constante p
-p = 0.5
+p = 0.6
 
 energia = np.zeros(grao_final+1)
 
@@ -108,6 +108,9 @@ listaAvalanche = []
 for i in range(0,len(magnitudeAvalanche)):
     if magnitudeAvalanche[i] != 0:
         listaAvalanche.append(magnitudeAvalanche[i])
+AvalanchePorPLogLog(listaAvalanche,p,L)
+
+# print(listaAvalanche)
 
 # print("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
 # plt.fill_between(x,h, color ='gold')
@@ -117,48 +120,48 @@ for i in range(0,len(magnitudeAvalanche)):
 # plt.savefig('imagens\graficosFinais\Banco(g=%i)(p=%.3f).png' %(grao,p))
 # plt.show()
 
-print("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
-#criar gráfico da pilha de areia com o fit linear
-plt.fill_between(x,h, color ='gold')
-plt.plot(x_areiaFit,fitSand(x_areiaFit,a,b), color = "green", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
-plt.xlabel("extensão do banco de areia")
-plt.ylabel("altura da pilha")
-plt.legend(prop={'size': 15})
-plt.savefig('imagens\graficosFinais\BancoFit(g=%i)(p=%.3f).png' %(grao,p))
-plt.show()
+# print("Pilha de Areia na estabilidade após %i deslizamentos e %i avalanches" %(deslizamento, len(listaAvalanche)))
+# #criar gráfico da pilha de areia com o fit linear
+# plt.fill_between(x,h, color ='gold')
+# plt.plot(x_areiaFit,fitSand(x_areiaFit,a,b), color = "green", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f" %(a,erra,b,errb))
+# plt.xlabel("extensão do banco de areia")
+# plt.ylabel("altura da pilha")
+# plt.legend(prop={'size': 15})
+# plt.savefig('imagens\graficosFinais\BancoFit(g=%i)(p=%.3f).png' %(grao,p))
+# plt.show()
 
 
-x_grao = np.array(range(0,grao_final+1))
-x_grao_fit = np.array(range(10**2,grao_final+1))
+# x_grao = np.array(range(0,grao_final+1))
+# x_grao_fit = np.array(range(10**2,grao_final+1))
 
-energia_fit = []
-for i in range(10**2,10**4+1):
-    energia_fit.append(energia[i])
-
-
-logA = np.log(x_grao_fit) 
-logB = np.log(energia_fit)
-
-popt,pcov = np.polyfit(logA, logB, 1, cov=True)         # ajuste log(y) = m*log(x) + c
-m = popt[0]
-c = popt[1]
-y_fit = np.exp(m*logA + c)                              # calcula os valores ajustados de y 
-
-errm = np.sqrt(pcov[0,0])
-errc = np.sqrt(pcov[1,1])
+# energia_fit = []
+# for i in range(10**2,10**4+1):
+#     energia_fit.append(energia[i])
 
 
-print("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
-#criar gráfico da relação da energia por grão de areia no sistema
-plt.plot(x_grao,energia, color ='green', label = "Dados" )
-plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.5f $\pm$ %.5f \nb =%.5f $\pm$ %.5f" %(m,errm,c,errc))
-plt.xlabel("Número de grãos na pilha")
-plt.ylabel("energia da pilha")
-plt.xscale("log")
-plt.yscale("log")
-plt.legend(prop={'size': 15})
-plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
-plt.show()
+# logA = np.log(x_grao_fit) 
+# logB = np.log(energia_fit)
 
-AvalanchePorP(listaAvalanche,p,L)
-AvalanchePorP_semiLogHist(listaAvalanche, p, L)
+# popt,pcov = np.polyfit(logA, logB, 1, cov=True)         # ajuste log(y) = m*log(x) + c
+# m = popt[0]
+# c = popt[1]
+# y_fit = np.exp(m*logA + c)                              # calcula os valores ajustados de y 
+
+# errm = np.sqrt(pcov[0,0])
+# errc = np.sqrt(pcov[1,1])
+
+
+# print("Energia por grão de areia para p=%.2f, L=%i e %i grãos de areia" %(p,L,grao))
+# #criar gráfico da relação da energia por grão de areia no sistema
+# plt.plot(x_grao,energia, color ='green', label = "Dados" )
+# plt.plot(x_grao_fit, y_fit, color = "orange", label = "a =%.5f $\pm$ %.5f \nb =%.5f $\pm$ %.5f" %(m,errm,c,errc))
+# plt.xlabel("Número de grãos na pilha")
+# plt.ylabel("energia da pilha")
+# plt.xscale("log")
+# plt.yscale("log")
+# plt.legend(prop={'size': 15})
+# plt.savefig('imagens\graficosFinais\Energia(L=%i)(p=%.3f).png' %(L,p))
+# plt.show()
+
+AvalanchePorPLogLog(listaAvalanche,p,L)
+# AvalanchePorP_semiLogHist(listaAvalanche, p, L)

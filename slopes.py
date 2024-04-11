@@ -33,5 +33,5 @@ plt.grid(True)
 plt.xlabel("L") #pode ser L, p ou graos
 plt.ylabel("slopes (a)")
 plt.legend(loc=2)
-plt.savefig("Slopesp.pdf")
+plt.savefig("Slopesl.png")
 plt.show()

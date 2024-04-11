@@ -20,18 +20,13 @@ errc = np.sqrt(pcov[2,2])
 
 print("Coefientes angulares dos plots de energia pela probabilidade")
 plt.scatter(ps,slopes, color = "dodgerblue", label = "dados")
-<<<<<<< HEAD
 plt.plot(psfit,fitSand(psfit,a,b,c), color = "crimson", label = "a =%.1f $\pm$ %.1f \nb =%.2f $\pm$ %.2f \nc =%.3f $\pm$ %.3f" %(a,erra,b,errb,c,errc))
 plt.grid(True)
 plt.title("Coefientes angulares dos plots de energia pela probabilidade")
-=======
-plt.plot(psfit,fitSand(psfit,a,b,c), color = "crimson", label = "a =%.3f $\pm$ %.3f \nb =%.3f $\pm$ %.3f \nc =%.3f $\pm$ %.3f" %(a,erra,b,errb,c,errc))
->>>>>>> 7613d0f31e96a540855312c4ee30e65a6404a0a1
 plt.xlabel("Probabilidade de um grão sair da pilha")
 plt.ylabel("Coeficiente angular da energia por grão de areia")
 plt.legend(prop={'size': 15})
 plt.show()
-<<<<<<< HEAD
 
 #Diferença fracionária:
 def diffrac(p,slope):
@@ -51,5 +46,3 @@ plt.xlabel("Probabilidade de um grão sair da pilha")
 plt.ylabel("Diferença fracionária")
 plt.show()
 # %%
-=======
->>>>>>> 7613d0f31e96a540855312c4ee30e65a6404a0a1
