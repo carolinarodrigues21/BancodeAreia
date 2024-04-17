@@ -12,13 +12,16 @@ from sandpile import pilhaDeAreia
 L = 100               
 
 #número total de grãos colocados no sistema
-grao_final = 10000
+graoFinal = 10000
 
 #valores da constante p
-valoresDeP = [0.1, 0.5]
+valoresDeP = [0.01, 0.1, 0.2, 0.5, 0.8, 0.9]
+legenda = []
+formatinho = ["o","p","v","*","^","s"]
 
 for i in range(len(valoresDeP)):
-    listaAvalanche = pilhaDeAreia(L, grao_final, valoresDeP[i])
+    listaAvalanche = pilhaDeAreia(L, graoFinal, valoresDeP[i])
+    legenda.append("p = " + str(valoresDeP[i]))
 
     maiorzao = np.max(listaAvalanche)
     valoresDeAvalanche = range(0,int(maiorzao)+1)
@@ -33,12 +36,12 @@ for i in range(len(valoresDeP)):
         frequencias.append(contador)
         contador = 0
 
-    print(frequencias)
-    plt.scatter(valoresDeAvalanche,frequencias)
+    plt.scatter(valoresDeAvalanche,frequencias, marker=formatinho[i])
 
 plt.xscale('log')
 plt.yscale('log')
-plt.xlim((0.8,maiorzao+1))
+plt.legend(legenda)
+plt.xlim((0.8,500))
 plt.ylim((0.8,np.max(np.array(frequencias))+1000))
 plt.xlabel("Tamanho da Avalanche (Energia)")
 plt.ylabel("Frequência Normalizada")

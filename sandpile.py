@@ -10,7 +10,7 @@ from atualiza import atualizaSlope as atualiza
 from verifica import *
 from avalanches import *
 
-def pilhaDeAreia(L:int, grao_final:int, p:float):
+def pilhaDeAreia(L:int, graoFinal:int, p:float):
 
     #deltaH crítico entre as células da pilha 
     z_critico = np.array(Zcritico(L))
@@ -27,17 +27,17 @@ def pilhaDeAreia(L:int, grao_final:int, p:float):
     #contagem de grãos no sistema
     grao = 0
 
-    energia = np.zeros(grao_final+1)
+    energia = np.zeros(graoFinal+1)
 
     #valor da energia no início do sistema
     energia[0] = 0
 
-    magnitudeAvalanche = np.zeros(grao_final+1)
+    magnitudeAvalanche = np.zeros(graoFinal+1)
 
     #valor da avalanche no início do sistema
     magnitudeAvalanche[0]= 0 
 
-    while grao < grao_final:
+    while grao < graoFinal:
         grao += 1               #mais um grão na pilha
         h[0] += 1               #aumenta a altura da primeira casa [0]
         z[0] += 1               #aumenta a diferença de altura da posição 0 com a 1
@@ -111,8 +111,8 @@ def pilhaDeAreia(L:int, grao_final:int, p:float):
     # plt.savefig('imagens\graficosFinais\BancoFit(g=%i)(p=%.3f).png' %(grao,p))
     # plt.show()
 
-    # x_grao = np.array(range(0,grao_final+1))
-    # x_grao_fit = np.array(range(10**2,grao_final+1))
+    # x_grao = np.array(range(0,graoFinal+1))
+    # x_grao_fit = np.array(range(10**2,graoFinal+1))
 
     # energia_fit = []
     # for i in range(10**2,10**4+1):

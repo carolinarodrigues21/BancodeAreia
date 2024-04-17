@@ -14,8 +14,7 @@ import numpy as np
 #         return plt.show()
 
 def AvalanchePorPLogLog(listaAvalanche, p, L):
-
-    print('estou aqui na certa!!!!')
+    
     maiorzao = np.max(listaAvalanche)
     valoresDeAvalanche = range(0,int(maiorzao)+1)
 
@@ -29,7 +28,6 @@ def AvalanchePorPLogLog(listaAvalanche, p, L):
         frequencias.append(contador)
         contador = 0
 
-    print(frequencias)
     plt.scatter(valoresDeAvalanche,frequencias)
     plt.xscale('log')
     plt.yscale('log')
