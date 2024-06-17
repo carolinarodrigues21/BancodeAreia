@@ -7,6 +7,7 @@ autores: Carolina Niklaus e Lucca Martins
 import numpy as np
 import matplotlib.pyplot as plt
 from sandpile import pilhaDeAreia
+from histograms import *
 
 #tamanho máximo do banco de areiass
 L = 100               
@@ -23,6 +24,7 @@ formatoScatter = ["o","p","v","*","^","s"]
 
 for i in range(len(probabilidades)):
     listaAvalanche = pilhaDeAreia(L, totalDeGraos, probabilidades[i])
+    normalizedAvalanchesHistogram(listaAvalanche, probabilidades[i])
     legendaGrafico.append("p = " + str(probabilidades[i]))
 
     maiorAvalanche = np.max(listaAvalanche)
