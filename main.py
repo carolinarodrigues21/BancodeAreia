@@ -44,12 +44,12 @@ for i in range(len(probabilidades)):
 
     plt.scatter(valoresDeAvalanche,frequenciasDeAvalanches, marker=formatoScatter[i])
 
-plt.xscale('log')
-plt.yscale('log')
-plt.legend(legendaGrafico)
-plt.xlim((0.8,500))
-plt.ylim((0.8,np.max(np.array(frequenciasDeAvalanches))+1000))
-plt.xlabel("Tamanho da Avalanche (Energia)")
-plt.ylabel("Frequência Normalizada")
-plt.show()
+# plt.xscale('log')
+# plt.yscale('log')
+# plt.legend(legendaGrafico)
+# plt.xlim((0.8,500))
+# plt.ylim((0.8,np.max(np.array(frequenciasDeAvalanches))+1000))
+# plt.xlabel("Tamanho da Avalanche (Energia)")
+# plt.ylabel("Frequência Normalizada")
+# plt.show()
     

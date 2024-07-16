@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 def normalizedAvalanchesHistogram(data, p): 
     limites  =  []
     for n in range(16):
-        limites.append(1.4**n)
+        # limites.append(1.4**n)
+        limites.append(1.5**n)
 
     n, bins = np.histogram(data, bins=limites)
 
@@ -13,7 +14,7 @@ def normalizedAvalanchesHistogram(data, p):
     plt.xscale('log')
     plt.yscale('log')
     plt.xlim([1,1000])
-    plt.ylim([1,1000])
+    plt.ylim([10,1000])
     plt.title('Histogram for %.2f' %(p))
     plt.xlabel('Value')
     plt.ylabel('Frequency')
